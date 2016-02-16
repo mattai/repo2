@@ -1,2 +1,97 @@
 # repo1
 Formation GIT repository 1
+
+Git est un logiciel de gestion de versions décentralisé. C'est un logiciel libre créé par Linus Torvalds, auteur du noyau Linux, et distribué selon les termes de la licence publique générale GNU version 2.
+
+Sommaire  [masquer] 
+1	Particularités techniques
+2	Fonctionnement
+3	Quelques commandes
+4	Interfaces
+5	Développement
+6	Origine du nom
+7	Notes et références
+8	Annexes
+8.1	Articles connexes
+8.2	Liens externes
+Particularités techniques[modifier | modifier le code]
+Similaire en cela à BitKeeper, Git ne repose pas sur un serveur centralisé. C'est un outil de bas niveau[réf. souhaitée], qui se veut simple et performant, dont la principale tâche est de gérer l'évolution du contenu d'une arborescence.
+
+Git indexe les fichiers d'après leur somme de contrôle calculée avec la fonction de hachage SHA-1. Quand un fichier n'est pas modifié, la somme de contrôle ne change pas et le fichier n'est stocké qu'une seule fois. En revanche, si le fichier est modifié, les deux versions sont stockées sur le disque.
+
+Git n'était pas, au départ, à proprement parler un logiciel de gestion de versions. Linus Torvalds expliquait que, « par bien des aspects, vous pouvez considérer Git comme un système de fichiers : il permet un adressage associatif, et possède la notion de versionnage, mais surtout, a été conçu en résolvant le problème du point de vue d'un spécialiste des systèmes de fichiers. Il n'y avait donc aucun intérêt à créer un système de gestion de version traditionnel. ». Il a aujourd'hui évolué pour intégrer toutes les fonctionnalités d'un gestionnaire de versions.
+
+Git est considéré comme performant, au point que certains autres logiciels de gestion de version (Darcs, Arch), qui n'utilisent pas de base de données, se sont montrés intéressés par le système de stockage des fichiers de Git pour leur propre fonctionnement3,4. Ils continuent toutefois à proposer des fonctionnalités plus évoluées.
+
+Dès le début, Git a été pensé dans le but de fonctionner de façon décentralisée, c'est d'ailleurs l'une des clefs de son succès[réf. souhaitée]. La décentralisation de Git a aussi beaucoup apporté au développement des logiciels libres, puisque le besoin de demander un compte sur un dépôt SVN ou CVS centralisé devient obsolète. Il suffit de forker un projet ou de le cloner pour commencer à travailler dessus (avec tout l'historique du projet en local) et ensuite de proposer sa contribution (pull request) au dépôt principal (mainteneur principal du projet).
+
+Les serveurs Git utilisent par défaut le port 9418 pour le protocole spécifique à Git. Les protocoles HTTP, HTTPS et SSH (et leurs ports standard) peuvent aussi être utilisés.
+
+Fonctionnement[modifier | modifier le code]
+Git possède deux structures de données : une base d'objets et un cache de répertoires. Il existe quatre types d'objets :
+
+l'objet blob, qui représente le contenu d'un fichier (l'origine de cette dénomination est probablement à chercher dans les binary large objects des bases de données) ;
+l'objet tree (mot anglais signifiant « arbre »), qui est une liste d'objets de type blobs et des informations associées à chaque blob, tel que le nom du fichier et les permissions. Cet objet décrit l'arborescence des sources à un instant donné ;
+l'objet commit, résultant de l'opération du même nom (mot anglais signifiant « valider une transaction »5) et qui donne accès à l'historique d'une arborescence de source. Il contient un message de log, un objet arbre et pointe vers un ou plusieurs objets commit parents ;
+l'objet tag (étiquette) qui est une manière de représenter un commit spécifique. Il est en général utilisé pour marquer certains commits, par exemple par un numéro ou un nom de version (2.1 ou bien Lucid Lynx).
+La base des objets peut contenir n'importe quel type d'objets. Une couche intermédiaire, utilisant des index (les sommes de contrôle), établit un lien entre les objets de la base et l'arborescence des fichiers.
+
+Chaque objet est identifié par une somme de contrôle SHA-1 de son contenu. Git calcule la somme de contrôle et utilise cette valeur pour déterminer le nom de fichier de l'objet. L'objet est placé dans un répertoire dont le nom correspond aux deux premières lettres de la somme de contrôle. Le reste de la somme de contrôle constitue alors le nom du fichier pour cet objet.
+
+Git enregistre chaque révision dans un fichier en tant qu'objet blob unique. Les relations entre les objets blobs sont déterminées en examinant les objets commit. En général, les objets blobs sont stockés dans leur intégralité en utilisant la compression de la zlib. Ce principe peut rapidement consommer une grande quantité de place disque ; de ce fait, les objets peuvent être combinés dans des archives, qui utilisent la compression différentielle (c'est-à-dire que les blobs sont enregistrés sous la forme de différences par rapport aux autres blobs).
+
+Quelques commandes[modifier | modifier le code]
+Git dispose notamment des commandes suivantes (pour une liste complète, consultez la page de manuel Git) :
+
+git init​ crée un nouveau dépôt ;
+git clone​ clone un dépôt distant ;
+git add​ ajoute de nouveaux objets blobs dans la base des objets pour chaque fichier modifié depuis le dernier commit. Les objets précédents restent inchangés ;
+git commit​ intègre la somme de contrôle SHA-1 d'un objet tree et les sommes de contrôle des objets commits parents pour créer un nouvel objet commit ;
+git branch​ crée une nouvelle branche de développement ;
+git merge​ fusionne plusieurs branches de développement.
+Interfaces[modifier | modifier le code]
+Catalin Marinas maintient un script similaire à la commande Quilt, mais fonctionnant au-dessus de Git : Stacked GIT (ou StGit).
+
+Une interface web est fournie en standard avec Git :
+
+gitweb: implémentée en Perl et maintenue par Kay Sievers.
+Ainsi que deux interfaces graphiques :
+
+git-gui : outil permettant les opérations git courantes, implémenté en Tcl/Tk ;
+gitk : est l'interface de visualisation détaillée et graphique d'un historique Git.
+D'autres projets fournissent des interfaces pour Git :
+
+tig est une interface texte ;
+qgit propose des outils supplémentaires par rapport à gitk ;
+JGit/EGit est une interface écrite en Java, puis une extension Git pour Eclipse ;
+giggle est une interface en GTK+ ;
+tortoiseGit reprend les éléments d'interface de TortoiseSVN ;
+SourceTree est un logiciel gratuit compatible Windows et OS X édité par Atlassian permettant de gérer des dépôts git et Mercurial (commit, merge, fetch, push…) ;
+Tower est un logiciel payant exclusif pour OS X permettant la gestion de dépôts git ;
+GitStack permet d'installer et d'administrer un serveur Git sur une plateforme Windows, implémenté en Python ;
+Gitblit est une interface web pour administrer et visualiser des dépôts Git ;
+gitalist est une interface web ;
+GitHub est un service web d'hébergement et de gestion de développement de logiciels développé en Ruby on Rails et Erlang ;
+GitLab équivalent à GitHub développé en Ruby ;
+Gitorious, projet communautaire libre, fermé et intégré a GitLab ;
+Gogs équivalent à GitHub développé en Go ;
+Gitea, fork de Gogs, notamment car une seule personne possédait les accès en écriture à ce dernier. Devrait permettre plus facilement de contribuer et d’avancer plus vite, mais actuellement très proche de Gogs.
+indefero.
+GitExtensions est un client GIT graphique tournant sous Windows.
+Développement[modifier | modifier le code]
+Git a été spécialement développé et optimisé pour le noyau Linux. Linus Torvalds a commencé son écriture en avril 2005, pour remplacer le programme propriétaire BitKeeper. En effet, Larry McVoy a révoqué la possibilité d'utiliser gratuitement son logiciel, après qu'Andrew Tridgell eut tenté une rétro-ingénierie sur les protocoles utilisés par BitKeeper. Les raisons de cette révocation restent toutefois controversées.
+
+La première version a été publiée le 7 avril 2005. Depuis, le développement de cet outil s'est poursuivi. Il a été progressivement amélioré, se voyant doté d'interfaces graphiques, d'interfaces web ou de scripts évolués.
+
+Le Kernel Summit de juillet 2005 a été l'occasion pour Linus Torvalds d'annoncer que les versions suivantes du noyau Linux (à partir de la version 2.6.12) seraient développées à l'aide de Git.
+
+Fin juillet 2005, Linus Torvalds a décidé de confier la maintenance et les évolutions de Git à Junio Hamano, expliquant qu'il avait « toujours dit qu'il ne voulait pas vraiment le maintenir sur le long terme ».
+
+Le développement est très actif. La parution de la première version stable (1.0) date du 21 décembre 2005, soit moins d'un an après le démarrage du projet.
+
+Origine du nom[modifier | modifier le code]
+Se prononce /ˈɡit/ avec un ɡ dur.[réf. souhaitée]
+
+Le magazine PC World nous apprend que « quand on lui a demandé pourquoi il avait appelé son logiciel "git", qui est à peu près l'équivalent de "connard" en argot britannique6,7, Linus Torvalds a répondu "je ne suis qu'un sale égocentrique, donc j'appelle tous mes projets d'après ma propre personne. D'abord Linux, puis Git."8 ».
+
+Il est clair que le mot égocentrique est ironique quand on sait que Linus Torvalds ne voulait pas appeler Linux par son propre nom, mais le nommer « Freix » (un mélange de « free-Unix » et freak en anglais qui veut dire « bizarre »). Lorsqu'il a publié ses premiers essais sur un site public, l'administrateur du site n'aimait pas Freax et a préféré l'appeler Linux9.
