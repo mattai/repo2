@@ -90,5 +90,5 @@ Origine du nom[modifier | modifier le code]
 Se prononce /ˈɡit/ avec un ɡ dur.[réf. souhaitée]
 
 Le magazine PC World nous apprend que « quand on lui a demandé pourquoi il avait appelé son logiciel "git", qui est à peu près l'équivalent de "connard" en argot britannique6,7, Linus Torvalds a répondu "je ne suis qu'un sale égocentrique, donc j'appelle tous mes projets d'après ma propre personne. D'abord Linux, puis Git."8 ».
-
+MODIF2
 Il est clair que le mot égocentrique est ironique quand on sait que Linus Torvalds ne voulait pas appeler Linux par son propre nom, mais le nommer « Freix » (un mélange de « free-Unix » et freak en anglais qui veut dire « bizarre »). Lorsqu'il a publié ses premiers essais sur un site public, l'administrateur du site n'aimait pas Freax et a préféré l'appeler Linux9.
